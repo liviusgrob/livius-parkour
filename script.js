@@ -2,297 +2,237 @@ const SUPABASE_URL = 'YOUR_SUPABASE_URL';
 const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
 
 async function supabaseInsert(table, data) {
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Prefer': 'return=minimal'
+      apikey: SUPABASE_ANON_KEY,
+      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      Prefer: 'return=minimal'
     },
     body: JSON.stringify(data)
   });
-  if (!response.ok) throw new Error(`Supabase error: ${response.status}`);
-  return true;
+  if (!res.ok) throw new Error(res.status);
 }
 
 async function newsletterExists(email) {
-  const response = await fetch(
+  const res = await fetch(
     `${SUPABASE_URL}/rest/v1/newsletter?email=eq.${encodeURIComponent(email)}&select=email`,
-    {
-      headers: {
-        'apikey': SUPABASE_ANON_KEY,
-        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
-      }
-    }
+    { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
   );
-  const data = await response.json();
-  return data.length > 0;
+  return (await res.json()).length > 0;
 }
 
-function showMessage(elementId, message, isSuccess = true) {
-  const element = document.getElementById(elementId);
-  if (!element) return;
-  element.textContent = message;
-  element.className = `form-message ${isSuccess ? 'success' : 'error'}`;
-  element.style.display = 'block';
-}
+const scrollProgress = document.getElementById('scrollProgress');
+const siteHeader = document.getElementById('siteHeader');
+const navLinks = document.querySelectorAll('.nav-links a, .mobile-menu a');
+const desktopNavLinks = document.querySelectorAll('.nav-links a');
+const revealItems = document.querySelectorAll('.reveal');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileClose = document.getElementById('mobileClose');
+const cookieBanner = document.getElementById('cookieBanner');
+const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
+const privacyModal = document.getElementById('privacyModal');
+const privacyOpenBtn = document.getElementById('privacyOpenBtn');
+const privacyCloseBtn = document.getElementById('privacyCloseBtn');
+const privacyCookieLink = document.getElementById('privacyCookieLink');
 
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.className = 'toast-message';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => {
-    if (toast.parentNode) toast.parentNode.removeChild(toast);
-  }, 3000);
-}
+const mainContent = document.getElementById('mainContent');
+const surveyPage = document.getElementById('surveyPage');
+const surveyTrigger = document.getElementById('surveyTrigger');
+const surveyBack = document.getElementById('surveyBack');
 
-function setupScrollProgress() {
-  const scrollProgress = document.querySelector('.scroll-progress');
-  if (!scrollProgress) return;
+const contactForm = document.getElementById('contactForm');
+const newsletterForm = document.getElementById('newsletterForm');
+const surveyForm = document.getElementById('surveyForm');
 
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const maxHeight = document.documentElement.scrollHeight - window.innerHeight;
-    scrollProgress.style.width = `${(scrolled / maxHeight) * 100}%`;
-  });
-}
+const showStatus = (target, message, type) => {
+  target.innerHTML = `<div class="status-message ${type}">${message}</div>`;
+};
 
-function setupRevealAnimations() {
-  const targets = document.querySelectorAll('.reveal, [data-animation="slide-up"]');
-  const observer = new IntersectionObserver((entries) => {
+const setButtonLoading = (button, isLoading, loadingText, defaultText) => {
+  button.disabled = isLoading;
+  button.textContent = isLoading ? loadingText : defaultText;
+};
+
+const updateScrollEffects = () => {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrollPercent = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+  scrollProgress.style.width = `${scrollPercent}%`;
+
+  if (scrollTop > 40) siteHeader.classList.add('scrolled');
+  else siteHeader.classList.remove('scrolled');
+};
+
+window.addEventListener('scroll', updateScrollEffects);
+updateScrollEffects();
+
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const id = entry.target.id;
+      desktopNavLinks.forEach((link) => {
+        const href = link.getAttribute('href');
+        link.classList.toggle('active', href === `#${id}`);
+      });
+    });
+  },
+  { threshold: 0.35 }
+);
+
+document.querySelectorAll('main section[id], #hero').forEach((section) => sectionObserver.observe(section));
+
+const revealObserver = new IntersectionObserver(
+  (entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
         observer.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1 });
+  },
+  { threshold: 0.2 }
+);
 
-  targets.forEach((el) => observer.observe(el));
-}
+revealItems.forEach((item) => revealObserver.observe(item));
 
-function setupNavigation() {
-  const hamburger = document.getElementById('hamburger');
-  const navMenu = document.getElementById('navMenu');
-  const navLinks = document.querySelectorAll('.nav-link');
+const openMobileMenu = () => {
+  mobileMenu.classList.add('open');
+  document.body.classList.add('no-scroll');
+};
 
-  if (hamburger && navMenu) {
-    hamburger.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
-  }
+const closeMobileMenu = () => {
+  mobileMenu.classList.remove('open');
+  document.body.classList.remove('no-scroll');
+};
 
-  navLinks.forEach((link) => {
-    link.addEventListener('click', () => {
-      if (navMenu) navMenu.classList.remove('active');
-    });
+hamburger.addEventListener('click', openMobileMenu);
+mobileClose.addEventListener('click', closeMobileMenu);
+navLinks.forEach((link) => {
+  link.addEventListener('click', () => {
+    if (mobileMenu.classList.contains('open')) closeMobileMenu();
   });
-}
+});
 
-function setupPrivacyModal() {
-  const privacyModal = document.getElementById('privacyModal');
-  const privacyLinkFooter = document.getElementById('privacyLinkFooter');
-  const privacyCookieLink = document.getElementById('privacyCookieLink');
-  const closeBtn = document.querySelector('.modal-close-btn');
-
-  const openModal = (e) => {
-    e.preventDefault();
-    if (!privacyModal) return;
-    privacyModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
+contactForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const status = document.getElementById('contactStatus');
+  const submitBtn = document.getElementById('contactSubmit');
+  const formData = new FormData(contactForm);
+  const payload = {
+    name: formData.get('name')?.toString().trim(),
+    email: formData.get('email')?.toString().trim(),
+    message: formData.get('message')?.toString().trim()
   };
 
-  const closeModal = () => {
-    if (!privacyModal) return;
-    privacyModal.classList.remove('active');
-    document.body.style.overflow = '';
+  try {
+    setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
+    await supabaseInsert('contacts', payload);
+    showStatus(status, 'Danke! Deine Nachricht wurde gesendet.', 'success');
+    contactForm.reset();
+  } catch {
+    showStatus(status, 'Fehler beim Senden. Bitte versuche es erneut.', 'error');
+  } finally {
+    setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
+  }
+});
+
+newsletterForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const status = document.getElementById('newsletterStatus');
+  const submitBtn = document.getElementById('newsletterSubmit');
+  const formData = new FormData(newsletterForm);
+  const payload = {
+    name: formData.get('name')?.toString().trim(),
+    email: formData.get('email')?.toString().trim()
   };
 
-  if (privacyLinkFooter) privacyLinkFooter.addEventListener('click', openModal);
-  if (privacyCookieLink) privacyCookieLink.addEventListener('click', openModal);
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-
-  if (privacyModal) {
-    privacyModal.addEventListener('click', (e) => {
-      if (e.target === privacyModal) closeModal();
-    });
+  try {
+    setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ANMELDEN');
+    if (await newsletterExists(payload.email)) {
+      showStatus(status, 'Diese E-Mail ist bereits angemeldet.', 'error');
+      return;
+    }
+    await supabaseInsert('newsletter', payload);
+    showStatus(status, 'Du bist erfolgreich im Newsletter eingetragen.', 'success');
+    newsletterForm.reset();
+  } catch {
+    showStatus(status, 'Fehler bei der Anmeldung. Bitte versuche es erneut.', 'error');
+  } finally {
+    setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ANMELDEN');
   }
+});
+
+const hideMainSections = () => {
+  mainContent.style.display = 'none';
+  surveyPage.classList.add('active');
+  surveyPage.setAttribute('aria-hidden', 'false');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
+const showMainSections = () => {
+  surveyPage.classList.remove('active');
+  surveyPage.setAttribute('aria-hidden', 'true');
+  mainContent.style.display = '';
+  document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
+};
+
+surveyTrigger.addEventListener('click', hideMainSections);
+surveyBack.addEventListener('click', showMainSections);
+
+surveyForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const status = document.getElementById('surveyStatus');
+  const submitBtn = document.getElementById('surveySubmit');
+  const formData = new FormData(surveyForm);
+
+  const payload = {
+    name: formData.get('name')?.toString().trim(),
+    email: formData.get('email')?.toString().trim(),
+    question_1: formData.get('q1'),
+    question_2: formData.get('q2'),
+    question_3: formData.get('q3'),
+    question_4: formData.get('q4')
+  };
+
+  try {
+    setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
+    await supabaseInsert('surveys', payload);
+    showStatus(status, 'Danke für deine Antworten!', 'success');
+    surveyForm.reset();
+  } catch {
+    showStatus(status, 'Fehler beim Absenden der Umfrage.', 'error');
+  } finally {
+    setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
+  }
+});
+
+const openPrivacyModal = (event) => {
+  if (event) event.preventDefault();
+  privacyModal.classList.add('open');
+  privacyModal.setAttribute('aria-hidden', 'false');
+};
+
+const closePrivacyModal = () => {
+  privacyModal.classList.remove('open');
+  privacyModal.setAttribute('aria-hidden', 'true');
+};
+
+privacyOpenBtn.addEventListener('click', openPrivacyModal);
+privacyCloseBtn.addEventListener('click', closePrivacyModal);
+privacyCookieLink.addEventListener('click', openPrivacyModal);
+privacyModal.addEventListener('click', (event) => {
+  if (event.target === privacyModal) closePrivacyModal();
+});
+
+if (localStorage.getItem('cookieAccepted') !== '1') {
+  cookieBanner.classList.add('show');
 }
 
-function setupCookieBanner() {
-  const cookieBanner = document.getElementById('cookieBanner');
-  const cookieAcceptBtn = document.getElementById('cookieAcceptBtn');
-
-  if (!cookieBanner || !cookieAcceptBtn) return;
-
-  const accepted = localStorage.getItem('cookieAccepted') === 'true';
-  if (accepted) {
-    cookieBanner.style.display = 'none';
-  }
-
-  cookieAcceptBtn.addEventListener('click', () => {
-    localStorage.setItem('cookieAccepted', 'true');
-    cookieBanner.style.display = 'none';
-    showToast('Cookie-Hinweis gespeichert');
-  });
-}
-
-function setupSurveyToggle() {
-  const surveyTriggerBtn = document.getElementById('surveyTriggerBtn');
-  const backToMainBtn = document.getElementById('backToMainBtn');
-  const hiddenSurvey = document.getElementById('hiddenSurvey');
-
-  if (surveyTriggerBtn && hiddenSurvey) {
-    surveyTriggerBtn.addEventListener('click', () => {
-      document.querySelectorAll('section.section, header, footer').forEach((section) => {
-        section.style.display = 'none';
-      });
-      hiddenSurvey.style.display = 'block';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-
-  if (backToMainBtn && hiddenSurvey) {
-    backToMainBtn.addEventListener('click', () => {
-      document.querySelectorAll('section.section, header, footer').forEach((section) => {
-        section.style.display = 'flex';
-      });
-      const footer = document.querySelector('footer');
-      if (footer) footer.style.display = 'block';
-      hiddenSurvey.style.display = 'none';
-      const surveyMain = document.getElementById('surveyMain');
-      if (surveyMain) {
-        window.scrollTo({ top: surveyMain.offsetTop - 80, behavior: 'smooth' });
-      }
-    });
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  setupScrollProgress();
-  setupRevealAnimations();
-  setupNavigation();
-  setupPrivacyModal();
-  setupCookieBanner();
-  setupSurveyToggle();
-
-  const scrollBtn = document.getElementById('scrollBtn');
-  if (scrollBtn) {
-    scrollBtn.addEventListener('click', () => {
-      const aboutSection = document.getElementById('about');
-      if (aboutSection) aboutSection.scrollIntoView({ behavior: 'smooth' });
-    });
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const contactForm = document.getElementById('contactForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name')?.value.trim();
-      const email = document.getElementById('email')?.value.trim();
-      const message = document.getElementById('message')?.value.trim();
-
-      if (!name || !email || !message) {
-        showMessage('contactFormMessage', 'Bitte alle Felder ausfüllen.', false);
-        return;
-      }
-      if (!emailRegex.test(email)) {
-        showMessage('contactFormMessage', 'Bitte eine gültige E-Mail-Adresse eingeben.', false);
-        return;
-      }
-
-      const submitBtn = contactForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Wird gesendet...';
-      try {
-        await supabaseInsert('contacts', { name, email, message });
-        showMessage('contactFormMessage', '✅ Vielen Dank! Deine Nachricht wurde gesendet.', true);
-        contactForm.reset();
-      } catch (error) {
-        showMessage('contactFormMessage', '❌ Fehler beim Senden. Schreib mir direkt an hallo@liviusparkour.ch', false);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Absenden';
-      }
-    });
-  }
-
-  const newsletterForm = document.getElementById('newsletterForm');
-  if (newsletterForm) {
-    newsletterForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const name = document.getElementById('newsletter-name')?.value.trim();
-      const email = document.getElementById('newsletter-email')?.value.trim();
-
-      if (!name || !email) {
-        showMessage('newsletterFormMessage', 'Bitte alle Felder ausfüllen.', false);
-        return;
-      }
-      if (!emailRegex.test(email)) {
-        showMessage('newsletterFormMessage', 'Bitte eine gültige E-Mail-Adresse eingeben.', false);
-        return;
-      }
-
-      const submitBtn = newsletterForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Wird gespeichert...';
-      try {
-        const exists = await newsletterExists(email);
-        if (exists) {
-          showMessage('newsletterFormMessage', 'Diese E-Mail ist bereits angemeldet.', false);
-          return;
-        }
-        await supabaseInsert('newsletter', { name, email });
-        showMessage('newsletterFormMessage', '✅ Erfolgreich angemeldet!', true);
-        newsletterForm.reset();
-      } catch (error) {
-        showMessage('newsletterFormMessage', '❌ Fehler beim Speichern. Bitte versuche es erneut.', false);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Newsletter abonnieren';
-      }
-    });
-  }
-
-  const surveyForm = document.getElementById('surveyForm');
-  const backToMainBtn = document.getElementById('backToMainBtn');
-  if (surveyForm) {
-    surveyForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      const name = document.getElementById('surveyName')?.value.trim();
-      const email = document.getElementById('surveyEmail')?.value.trim();
-      const q1 = document.querySelector('input[name="q1"]:checked')?.value;
-      const q2 = document.querySelector('input[name="q2"]:checked')?.value;
-      const q3 = document.getElementById('q3')?.value.trim();
-      const q4 = document.querySelector('input[name="q4"]:checked')?.value;
-
-      if (!name || !email || !q1 || !q2 || !q4) {
-        showMessage('surveyFormMessage', 'Bitte alle Pflichtfelder ausfüllen.', false);
-        return;
-      }
-      if (!emailRegex.test(email)) {
-        showMessage('surveyFormMessage', 'Bitte eine gültige E-Mail-Adresse eingeben.', false);
-        return;
-      }
-
-      const submitBtn = surveyForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Wird gesendet...';
-      try {
-        await supabaseInsert('surveys', { name, email, q1, q2, q3, q4 });
-        showMessage('surveyFormMessage', '✅ Vielen Dank für deine Teilnahme!', true);
-        surveyForm.reset();
-        setTimeout(() => { if (backToMainBtn) backToMainBtn.click(); }, 3000);
-      } catch (error) {
-        showMessage('surveyFormMessage', '❌ Fehler beim Senden. Bitte versuche es erneut.', false);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Umfrage absenden';
-      }
-    });
-  }
+cookieAcceptBtn.addEventListener('click', () => {
+  localStorage.setItem('cookieAccepted', '1');
+  cookieBanner.classList.remove('show');
 });
