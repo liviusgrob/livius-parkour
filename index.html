@@ -1,256 +1,357 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Livius – Parkour Creator</title>
-  <meta name="description" content="Parkour Creator – Movement. Kontrolle. Disziplin.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="scroll-progress"></div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Livius – Parkour Creator</title>
+    <meta
+      name="description"
+      content="Livius ist ein 15-jähriger Parkour-Athlet und Movement-Creator aus Basel."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWix+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkR4j8Wc0nQqyiFbwA4D4gzJ9L5x7v3VfQwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="scrollProgress" class="scroll-progress"></div>
 
-  <nav class="nav">
-    <div class="nav-container">
-      <a href="#" class="logo">LIVIUS</a>
-      <div class="nav-menu" id="navMenu">
-        <ul class="nav-links">
-          <li><a href="#hero" class="nav-link">Start</a></li>
-          <li><a href="#about" class="nav-link">Über mich</a></li>
-          <li><a href="#work" class="nav-link">Was ich mache</a></li>
-          <li><a href="#connect" class="nav-link">Connect</a></li>
-          <li><a href="#contact" class="nav-link">Kontakt</a></li>
-          <li><a href="#newsletter" class="nav-link">Newsletter</a></li>
-          <li><a href="#surveyMain" class="nav-link">Umfrage</a></li>
-          <li><a href="#impressum" class="nav-link">Impressum</a></li>
+    <header class="site-header" id="siteHeader">
+      <nav class="nav container">
+        <a class="logo" href="#hero">LIVIUS</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#hero">Start</a></li>
+          <li><a href="#about">Über mich</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#work">Was ich mache</a></li>
+          <li><a href="#connect">Connect</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="#survey">Umfrage</a></li>
+          <li><a href="#impressum">Impressum</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+      <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" id="mobileClose" aria-label="Menü schließen">×</button>
+        <ul>
+          <li><a href="#hero">Start</a></li>
+          <li><a href="#about">Über mich</a></li>
+          <li><a href="#gallery">Galerie</a></li>
+          <li><a href="#work">Was ich mache</a></li>
+          <li><a href="#connect">Connect</a></li>
+          <li><a href="#contact">Kontakt</a></li>
+          <li><a href="#newsletter">Newsletter</a></li>
+          <li><a href="#survey">Umfrage</a></li>
+          <li><a href="#impressum">Impressum</a></li>
         </ul>
       </div>
-      <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
-  </nav>
+    </header>
 
-  <header id="hero" class="hero section reveal" data-animation="slide-up">
-    <div class="hero-content">
-      <h1 class="hero-title gradient-animated-text">Parkour<br>Creator</h1>
-      <p class="hero-subtitle">Movement. Kontrolle. Disziplin.</p>
-      <button id="scrollBtn" class="btn-hero">Mehr erfahren <i class="fas fa-arrow-down"></i></button>
-    </div>
-    <div class="hero-gradient"></div>
-  </header>
-
-  <section id="about" class="section reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Wer ich bin</h2>
-      <div class="content-text">
-        <p>Ich bin Livius, 15 Jahre alt, Parkour-Athlet und Movement-Creator. Seit meiner Kindheit faszinieren mich Bewegung, Technik und die Kontrolle über den eigenen Körper.</p>
-        <p>Für mich ist Sport mehr als Training – er ist Ausdruck von Disziplin, Kreativität und Persönlichkeit. Ich experimentiere ständig mit neuen Techniken und entwickle Wege, wie andere Menschen ihre Performance verbessern können.</p>
-        <p>Mein Trainingsansatz basiert auf drei Säulen: <strong>Präzision</strong>, <strong>Kontrolle</strong> und <strong>Kreativität</strong>.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="work" class="section bubble reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Was ich mache</h2>
-      <div class="content-text">
-        <p>Ich teile meine Erfahrung als Parkour-Athlet mit Fokus auf Technik, Mobilität und Bodyweight-Training. Ich erstelle Trainingspläne, Tutorials und Challenges für nachhaltige Fortschritte.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="connect" class="section reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Connect</h2>
-      <p class="section-subtitle">Folge mir auf meinen Kanälen</p>
-      <div class="connect-grid">
-        <a href="https://www.tiktok.com/@liviusparkour" class="connect-card tiktok" target="_blank" rel="noopener noreferrer">
-          <div class="connect-icon"><i class="fab fa-tiktok"></i></div>
-          <div class="connect-content"><h3>TikTok</h3><p class="connect-followers">@liviusparkour</p></div>
-        </a>
-        <a href="https://www.instagram.com/livius.parkour/" class="connect-card instagram" target="_blank" rel="noopener noreferrer">
-          <div class="connect-icon"><i class="fab fa-instagram"></i></div>
-          <div class="connect-content"><h3>Instagram</h3><p class="connect-followers">@livius.parkour</p></div>
-        </a>
-        <a href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" class="connect-card whatsapp" target="_blank" rel="noopener noreferrer">
-          <div class="connect-icon"><i class="fab fa-whatsapp"></i></div>
-          <div class="connect-content"><h3>WhatsApp Channel</h3><p class="connect-followers">Updates & Insights</p></div>
-        </a>
-        <a href="https://www.streemparkour.com/" class="connect-card verein" target="_blank" rel="noopener noreferrer">
-          <div class="connect-icon"><i class="fas fa-running"></i></div>
-          <div class="connect-content"><h3>Streem Parkour</h3><p class="connect-followers">Community</p></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section bubble reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Kontakt</h2>
-      <p class="section-subtitle">Schreib mir eine Nachricht</p>
-      <form id="contactForm" class="contact-form">
-        <div class="form-group">
-          <label for="name" class="form-label">Dein Name</label>
-          <input type="text" id="name" class="form-input" placeholder="Max Mustermann" required>
+    <main id="mainContent">
+      <section id="hero" class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content container">
+          <p class="hero-label">PARKOUR CREATOR · BASEL</p>
+          <h1 class="hero-title">
+            <span>MOVEMENT.</span>
+            <span>KONTROLLE.</span>
+            <span>DISZIPLIN.</span>
+          </h1>
+          <p class="hero-subtitle">Livius · 15 · Basel</p>
+          <a href="#about" class="hero-cta">MEHR ERFAHREN ↓</a>
         </div>
-        <div class="form-group">
-          <label for="email" class="form-label">Deine E-Mail</label>
-          <input type="email" id="email" class="form-input" placeholder="max@example.com" required>
-        </div>
-        <div class="form-group">
-          <label for="message" class="form-label">Nachricht</label>
-          <textarea id="message" class="form-textarea" rows="5" placeholder="Deine Nachricht..." required></textarea>
-        </div>
-        <button type="submit" class="btn-submit">Absenden</button>
-        <div id="contactFormMessage" class="form-message"></div>
-      </form>
-    </div>
-  </section>
+        <p class="hero-scroll">SCROLL</p>
+      </section>
 
-  <section id="newsletter" class="section reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Newsletter</h2>
-      <p class="section-subtitle">Bleib auf dem Laufenden</p>
-      <form id="newsletterForm" class="contact-form">
-        <div class="form-group">
-          <label for="newsletter-name" class="form-label">Dein Name</label>
-          <input type="text" id="newsletter-name" class="form-input" placeholder="Max Mustermann" required>
-        </div>
-        <div class="form-group">
-          <label for="newsletter-email" class="form-label">Deine E-Mail</label>
-          <input type="email" id="newsletter-email" class="form-input" placeholder="max@example.com" required>
-        </div>
-        <button type="submit" class="btn-submit">Newsletter abonnieren</button>
-        <div id="newsletterFormMessage" class="form-message"></div>
-        <p class="form-note">Ich sende keinen Spam. Du kannst dich jederzeit abmelden.</p>
-      </form>
-    </div>
-  </section>
-
-  <section id="surveyMain" class="section bubble reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Deine Meinung zählt</h2>
-      <p class="section-subtitle">Hilf mir, bessere Inhalte zu erstellen</p>
-      <button id="surveyTriggerBtn" class="btn-hero"><i class="fas fa-poll"></i> Zur Umfrage</button>
-    </div>
-  </section>
-
-  <section id="hiddenSurvey" class="hidden-section">
-    <div class="container">
-      <button id="backToMainBtn" class="back-btn"><i class="fas fa-arrow-left"></i> Zurück zur Hauptseite</button>
-      <h2 class="section-title gradient-animated-text">Parkour & Content Umfrage</h2>
-      <p class="section-subtitle">Bitte nimm dir 2 Minuten Zeit</p>
-      <form id="surveyForm" class="survey-form">
-        <div class="form-group">
-          <label for="surveyName" class="form-label">Dein Name</label>
-          <input type="text" id="surveyName" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label for="surveyEmail" class="form-label">Deine E-Mail</label>
-          <input type="email" id="surveyEmail" class="form-input" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Welche Art von Inhalten interessiert dich am meisten?</label>
-          <div class="survey-options">
-            <label class="survey-option"><input type="radio" name="q1" value="tutorials" required><span><i class="fas fa-video"></i> Tutorials & Technik</span></label>
-            <label class="survey-option"><input type="radio" name="q1" value="shorts"><span><i class="fas fa-bolt"></i> Kurze Parkour-Clips</span></label>
-            <label class="survey-option"><input type="radio" name="q1" value="training"><span><i class="fas fa-dumbbell"></i> Trainingspläne</span></label>
-            <label class="survey-option"><input type="radio" name="q1" value="behind"><span><i class="fas fa-film"></i> Behind the Scenes</span></label>
+      <section id="about" class="section about">
+        <div class="container about-grid">
+          <div class="about-copy reveal">
+            <p class="section-label">01 / ÜBER MICH</p>
+            <h2 class="section-title">Wer ich bin</h2>
+            <p>
+              Ich bin Livius, 15 Jahre alt, Parkour-Athlet und Movement-Creator aus Basel. Seit
+              meiner Kindheit faszinieren mich Bewegung, Kontrolle und Präzision.
+            </p>
+            <p>
+              Mein Training basiert auf drei Säulen: Präzision — jede Bewegung sauber ausführen.
+              Kontrolle — volle Körperbeherrschung. Kreativität — Bewegungen frei kombinieren.
+            </p>
+            <p>
+              Neben dem Sport interessiere ich mich für digitale Projekte und den Aufbau meiner
+              Personal Brand. Mein Ziel: Menschen zeigen, wie sie ihr volles Potenzial entfalten.
+            </p>
+          </div>
+          <div class="about-image reveal">
+            <img src="solo.jpg" alt="Livius steht auf einer Mauerkante" />
           </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Wie oft schaust du Parkour-Content?</label>
-          <div class="survey-options">
-            <label class="survey-option"><input type="radio" name="q2" value="daily" required><span><i class="fas fa-calendar-day"></i> Täglich</span></label>
-            <label class="survey-option"><input type="radio" name="q2" value="weekly"><span><i class="fas fa-calendar-week"></i> Mehrmals pro Woche</span></label>
-            <label class="survey-option"><input type="radio" name="q2" value="monthly"><span><i class="fas fa-calendar-alt"></i> Ein paar Mal im Monat</span></label>
-            <label class="survey-option"><input type="radio" name="q2" value="rarely"><span><i class="fas fa-search"></i> Selten</span></label>
+      </section>
+
+      <section id="gallery" class="section gallery">
+        <div class="container">
+          <p class="section-label">02 / GALERIE</p>
+          <h2 class="section-title reveal">Die Bewegung</h2>
+          <div class="masonry reveal">
+            <figure><img src="jump-trio.jpg" alt="Drei Athleten springen gleichzeitig" /></figure>
+            <figure><img src="backflip.jpg" alt="Athlet macht Backflip in der Luft" /></figure>
+            <figure><img src="community-big.jpg" alt="Große Parkour Community Gruppe" /></figure>
+            <figure><img src="rooftop.jpg" alt="Rooftop Jump im Weitwinkel" /></figure>
+            <figure><img src="merch-bts.jpg" alt="Behind the scenes mit Streem Merch" /></figure>
+            <figure><img src="event-rail.jpg" alt="Präzisionssprung auf Metallgeländern" /></figure>
           </div>
         </div>
-        <div class="form-group">
-          <label for="q3" class="form-label">Was ist deine größte Herausforderung beim Parkour?</label>
-          <textarea id="q3" class="form-textarea" rows="3"></textarea>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Würdest du Interesse an einem Online-Workshop haben?</label>
-          <div class="survey-options">
-            <label class="survey-option"><input type="radio" name="q4" value="yes" required><span><i class="fas fa-check-circle"></i> Ja, auf jeden Fall!</span></label>
-            <label class="survey-option"><input type="radio" name="q4" value="maybe"><span><i class="fas fa-question-circle"></i> Vielleicht</span></label>
-            <label class="survey-option"><input type="radio" name="q4" value="no"><span><i class="fas fa-times-circle"></i> Nein, eher nicht</span></label>
+      </section>
+
+      <section id="work" class="section work">
+        <div class="container work-shell reveal">
+          <p class="section-label">03 / WAS ICH MACHE</p>
+          <h2 class="section-title">Meine Säulen</h2>
+          <div class="pillars">
+            <article class="pillar-card">
+              <span class="pillar-icon">⚡</span>
+              <h3>Tutorials &amp; Technik</h3>
+              <p>Schritt-für-Schritt Anleitungen für Grundtechniken bis zu fortgeschrittenen Moves.</p>
+            </article>
+            <article class="pillar-card">
+              <span class="pillar-icon">🏃</span>
+              <h3>Training &amp; Coaching</h3>
+              <p>Personalisierte Trainingspläne, Technik-Analysen und individuelle Begleitung.</p>
+            </article>
+            <article class="pillar-card">
+              <span class="pillar-icon">🎬</span>
+              <h3>Content Creation</h3>
+              <p>Tägliche Inspiration auf TikTok und Instagram — Behind the Scenes und volle Clips.</p>
+            </article>
           </div>
         </div>
-        <button type="submit" class="btn-submit">Umfrage absenden</button>
-        <div id="surveyFormMessage" class="form-message"></div>
-      </form>
-    </div>
-  </section>
+      </section>
 
-  <section id="impressum" class="section bubble reveal" data-animation="slide-up">
-    <div class="container">
-      <h2 class="section-title gradient-animated-text">Impressum</h2>
-      <div class="impressum-content">
-        <div class="impressum-section">
-          <h3>Website-Betreiber / Verantwortlich für den Inhalt:</h3>
-          <p><strong>Livius Grob</strong><br>c/o Thomas Weibel<br>Largitzenstrasse 80<br>4056 Basel<br>Schweiz</p>
+      <section id="connect" class="section connect">
+        <div class="container">
+          <p class="section-label">04 / CONNECT</p>
+          <h2 class="section-title reveal">Folge meiner Journey</h2>
+          <div class="connect-grid reveal">
+            <a class="connect-card tiktok" href="https://www.tiktok.com/@liviusparkour" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-tiktok"></i>
+              <div>
+                <h3>@liviusparkour</h3>
+                <p>Parkour Shorts &amp; Clips</p>
+              </div>
+            </a>
+            <a class="connect-card instagram" href="https://www.instagram.com/livius.parkour/" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-instagram"></i>
+              <div>
+                <h3>@livius.parkour</h3>
+                <p>Training &amp; Behind the Scenes</p>
+              </div>
+            </a>
+            <a class="connect-card whatsapp" href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp"></i>
+              <div>
+                <h3>WhatsApp Channel</h3>
+                <p>Exklusive News direkt im Chat</p>
+              </div>
+            </a>
+            <a class="connect-card verein" href="https://www.streemparkour.com/" target="_blank" rel="noopener noreferrer">
+              <i class="fa-solid fa-people-group"></i>
+              <div>
+                <h3>Streem Parkour</h3>
+                <p>Trainings &amp; Community Basel</p>
+              </div>
+            </a>
+          </div>
         </div>
-        <div class="impressum-section">
-          <h3>Kontakt:</h3>
-          <p class="contact-with-icon"><i class="fas fa-phone contact-icon"></i><a href="tel:+41763215180">+41 76 321 51 80</a></p>
-          <p class="contact-with-icon"><i class="fas fa-envelope contact-icon"></i><a href="mailto:livius.grob@gmx.ch">livius.grob@gmx.ch</a></p>
+      </section>
+
+      <section id="contact" class="section contact">
+        <div class="container reveal">
+          <p class="section-label">05 / KONTAKT</p>
+          <h2 class="section-title">Schreib mir direkt — ich antworte persönlich</h2>
+          <form id="contactForm" class="site-form">
+            <label for="contactName">Name</label>
+            <input id="contactName" name="name" type="text" required />
+            <label for="contactEmail">E-Mail</label>
+            <input id="contactEmail" name="email" type="email" required />
+            <label for="contactMessage">Nachricht</label>
+            <textarea id="contactMessage" name="message" rows="5" required></textarea>
+            <div id="contactStatus"></div>
+            <button type="submit" id="contactSubmit">ABSENDEN</button>
+          </form>
         </div>
+      </section>
+
+      <section id="newsletter" class="section newsletter">
+        <div class="container reveal">
+          <p class="section-label">06 / NEWSLETTER</p>
+          <h2 class="section-title">Jeden Montag ein neuer Parkour-Tipp — direkt von mir, geschrieben von KI</h2>
+          <form id="newsletterForm" class="site-form">
+            <label for="newsletterName">Name</label>
+            <input id="newsletterName" name="name" type="text" required />
+            <label for="newsletterEmail">E-Mail</label>
+            <input id="newsletterEmail" name="email" type="email" required />
+            <div id="newsletterStatus"></div>
+            <button type="submit" id="newsletterSubmit">ANMELDEN</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="survey" class="section survey">
+        <div class="container reveal center">
+          <p class="section-label">07 / UMFRAGE</p>
+          <button id="surveyTrigger" class="survey-trigger">ZUR UMFRAGE →</button>
+        </div>
+      </section>
+
+      <section id="surveyPage" class="survey-page" aria-hidden="true">
+        <div class="container">
+          <button id="surveyBack" class="survey-back">← Zurück</button>
+          <h2 class="section-title">Kurze Umfrage</h2>
+          <form id="surveyForm" class="site-form survey-form">
+            <label for="surveyName">Name</label>
+            <input id="surveyName" name="name" type="text" required />
+            <label for="surveyEmail">E-Mail</label>
+            <input id="surveyEmail" name="email" type="email" required />
+
+            <fieldset>
+              <legend>1. Wie oft trainierst du pro Woche?</legend>
+              <label><input type="radio" name="q1" value="1-2" required /> 1-2 Mal</label>
+              <label><input type="radio" name="q1" value="3-4" /> 3-4 Mal</label>
+              <label><input type="radio" name="q1" value="5+" /> 5+ Mal</label>
+            </fieldset>
+            <fieldset>
+              <legend>2. Was interessiert dich am meisten?</legend>
+              <label><input type="radio" name="q2" value="Technik" required /> Technik</label>
+              <label><input type="radio" name="q2" value="Motivation" /> Motivation</label>
+              <label><input type="radio" name="q2" value="Community" /> Community</label>
+            </fieldset>
+            <fieldset>
+              <legend>3. Auf welcher Plattform folgst du mir?</legend>
+              <label><input type="radio" name="q3" value="TikTok" required /> TikTok</label>
+              <label><input type="radio" name="q3" value="Instagram" /> Instagram</label>
+              <label><input type="radio" name="q3" value="WhatsApp" /> WhatsApp</label>
+            </fieldset>
+            <fieldset>
+              <legend>4. Möchtest du künftig mehr Events in Basel?</legend>
+              <label><input type="radio" name="q4" value="Ja" required /> Ja</label>
+              <label><input type="radio" name="q4" value="Vielleicht" /> Vielleicht</label>
+              <label><input type="radio" name="q4" value="Nein" /> Nein</label>
+            </fieldset>
+            <div id="surveyStatus"></div>
+            <button type="submit" id="surveySubmit">ABSENDEN</button>
+          </form>
+        </div>
+      </section>
+
+      <section id="impressum" class="section impressum">
+        <div class="container reveal">
+          <p class="section-label">08 / IMPRESSUM</p>
+          <h2 class="section-title">Impressum</h2>
+          <p><strong>Betreiber:</strong> Livius Grob, 15 Jahre</p>
+          <p>c/o Thomas Weibel, Largitzenstrasse 80, 4056 Basel, Schweiz</p>
+          <p>Tel: +41 76 321 51 80</p>
+          <p>E-Mail: livius.grob@gmx.ch</p>
+
+          <h3>Haftungsausschluss</h3>
+          <p>
+            Alle Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit,
+            Vollständigkeit und Aktualität der Inhalte wird jedoch keine Gewähr übernommen.
+          </p>
+
+          <h3>Urheberrecht</h3>
+          <p>
+            Die auf dieser Website veröffentlichten Inhalte, Bilder und Texte unterliegen dem
+            Urheberrecht. Eine Verwendung außerhalb der Grenzen des Urheberrechts bedarf der
+            schriftlichen Zustimmung des Betreibers.
+          </p>
+
+          <h3>Jugendschutz</h3>
+          <p>
+            Diese Website richtet sich an sportinteressierte Jugendliche und Erwachsene. Inhalte
+            werden verantwortungsvoll und altersgerecht veröffentlicht.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer-logo">LIVIUS</p>
+        <p class="footer-tagline">Movement. Kontrolle. Disziplin.</p>
+        <div class="footer-socials">
+          <a href="https://www.tiktok.com/@liviusparkour" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+          <a href="https://www.instagram.com/livius.parkour/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="https://www.streemparkour.com/" aria-label="Streem Parkour" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-people-group"></i></a>
+          <button id="privacyOpenBtn" aria-label="Datenschutz"><i class="fa-solid fa-shield-halved"></i></button>
+        </div>
+        <p class="copyright">© 2025 Livius – Parkour Creator</p>
+      </div>
+    </footer>
+
+    <div id="cookieBanner" class="cookie-banner">
+      <p>Diese Website verwendet notwendige Cookies. <a href="#" id="privacyCookieLink">Datenschutz</a></p>
+      <button id="cookieAcceptBtn">Verstanden</button>
+    </div>
+
+    <div id="privacyModal" class="privacy-modal" aria-hidden="true">
+      <div class="privacy-dialog">
+        <button id="privacyCloseBtn" class="privacy-close" aria-label="Datenschutz schließen">×</button>
+        <h2>Datenschutzerklärung</h2>
+        <p>
+          Der Schutz deiner persönlichen Daten ist uns wichtig. Diese Website verarbeitet Daten nur
+          im technisch notwendigen Umfang und zur Bearbeitung deiner Anfragen.
+        </p>
+        <h3>1. Verantwortliche Stelle</h3>
+        <p>
+          Verantwortlich für die Datenverarbeitung ist Livius Grob, c/o Thomas Weibel,
+          Largitzenstrasse 80, 4056 Basel, Schweiz.
+        </p>
+        <h3>2. Erhebung und Verarbeitung personenbezogener Daten</h3>
+        <p>
+          Wenn du das Kontaktformular, den Newsletter oder die Umfrage nutzt, werden die von dir
+          eingegebenen Daten (Name, E-Mail, Nachricht bzw. Antworten) zur Bearbeitung gespeichert.
+        </p>
+        <h3>3. Zweck der Verarbeitung</h3>
+        <p>
+          Die Daten werden ausschließlich zur Kommunikation, zur Verbesserung der Inhalte und zur
+          Newsletter-Zustellung verwendet.
+        </p>
+        <h3>4. Speicherdauer</h3>
+        <p>
+          Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist
+          oder gesetzliche Aufbewahrungspflichten bestehen.
+        </p>
+        <h3>5. Deine Rechte</h3>
+        <p>
+          Du hast das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung
+          sowie Widerspruch gegen die Verarbeitung deiner Daten.
+        </p>
+        <h3>6. Cookies</h3>
+        <p>
+          Diese Website nutzt ausschließlich notwendige Cookies, um grundlegende Funktionen wie die
+          Cookie-Bestätigung bereitzustellen.
+        </p>
+        <h3>7. Kontakt</h3>
+        <p>
+          Für Fragen zum Datenschutz kannst du dich jederzeit per E-Mail an livius.grob@gmx.ch
+          wenden.
+        </p>
       </div>
     </div>
-  </section>
 
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-logo">LIVIUS</div>
-        <p class="footer-text">© 2025 Livius – Parkour Creator</p>
-        <p class="footer-subtext">Movement. Kontrolle. Disziplin.</p>
-        <div class="footer-social">
-          <a href="https://www.tiktok.com/@liviusparkour" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
-          <a href="https://www.instagram.com/livius.parkour/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
-          <a href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" target="_blank" class="social-icon"><i class="fab fa-whatsapp"></i></a>
-          <a href="https://www.streemparkour.com/" target="_blank" class="social-icon"><i class="fas fa-running"></i></a>
-          <a href="#" id="privacyLinkFooter" class="social-icon privacy-link" title="Datenschutzerklärung"><i class="fas fa-shield-alt"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <div id="privacyModal" class="modal-overlay">
-    <div class="modal-box">
-      <button class="modal-close-btn">&times;</button>
-      <div class="modal-content">
-        <h2><i class="fas fa-shield-alt"></i> Datenschutzerklärung</h2>
-        <div class="privacy-content">
-          <h3>1. Allgemeines</h3>
-          <p>Der Schutz Ihrer persönlichen Daten ist uns ein wichtiges Anliegen. Diese Datenschutzerklärung informiert über Art, Umfang und Zweck der Verarbeitung personenbezogener Daten.</p>
-          <h3>2. Kontaktaufnahme</h3>
-          <p>Wenn Sie uns per Formular kontaktieren, werden Ihre Angaben zur Bearbeitung der Anfrage gespeichert.</p>
-          <h3>3. Newsletter</h3>
-          <p>Für den Newsletter speichern wir Name und E-Mail-Adresse, um Ihnen Updates zu senden.</p>
-          <h3>4. Ihre Rechte</h3>
-          <p>Sie haben jederzeit das Recht auf Auskunft, Berichtigung oder Löschung Ihrer Daten. Kontakt: <a href="mailto:livius.grob@gmx.ch">livius.grob@gmx.ch</a>.</p>
-          <p class="privacy-date"><strong>Stand:</strong> Januar 2026</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="cookieBanner" class="cookie-banner">
-    <p>Diese Website verwendet notwendige Cookies für die Grundfunktionen.
-      <a href="#" id="privacyCookieLink">Datenschutzerklärung</a>
-    </p>
-    <button id="cookieAcceptBtn" class="cookie-accept-btn">Verstanden</button>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
