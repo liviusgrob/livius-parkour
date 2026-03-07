@@ -131,10 +131,10 @@ contactForm.addEventListener('submit', async (event) => {
   try {
     setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
     await supabaseInsert('contacts', payload);
-    showStatus(status, 'Danke! Deine Nachricht wurde gesendet.', 'success');
+    showStatus(status, 'Nachricht erhalten — ich melde mich bald.', 'success');
     contactForm.reset();
   } catch {
-    showStatus(status, 'Fehler beim Senden. Bitte versuche es erneut.', 'error');
+    showStatus(status, 'Etwas hat nicht geklappt. Schreib mir direkt: livius.grob@gmx.ch', 'error');
   } finally {
     setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
   }
@@ -157,10 +157,10 @@ newsletterForm.addEventListener('submit', async (event) => {
       return;
     }
     await supabaseInsert('newsletter', payload);
-    showStatus(status, 'Du bist erfolgreich im Newsletter eingetragen.', 'success');
+    showStatus(status, 'Bist dabei — bis Montag.', 'success');
     newsletterForm.reset();
   } catch {
-    showStatus(status, 'Fehler bei der Anmeldung. Bitte versuche es erneut.', 'error');
+    showStatus(status, "Hat nicht geklappt. Versuch's nochmal.", 'error');
   } finally {
     setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ANMELDEN');
   }
@@ -201,10 +201,10 @@ surveyForm.addEventListener('submit', async (event) => {
   try {
     setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
     await supabaseInsert('surveys', payload);
-    showStatus(status, 'Danke für deine Antworten!', 'success');
+    showStatus(status, 'Danke — das hilft mir wirklich weiter.', 'success');
     surveyForm.reset();
   } catch {
-    showStatus(status, 'Fehler beim Absenden der Umfrage.', 'error');
+    showStatus(status, "Hat nicht geklappt. Versuch's nochmal.", 'error');
   } finally {
     setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
   }
