@@ -39,9 +39,12 @@ const privacyCloseBtn = document.getElementById('privacyCloseBtn');
 const privacyCookieLink = document.getElementById('privacyCookieLink');
 
 const mainContent = document.getElementById('mainContent');
-const surveyPage = document.getElementById('surveyPage');
-const surveyTrigger = document.getElementById('surveyTrigger');
-const surveyBack = document.getElementById('surveyBack');
+const hiddenSurvey = document.getElementById('hiddenSurvey');
+const surveyTriggerBtn = document.getElementById('surveyTriggerBtn');
+const backToMainBtn = document.getElementById('backToMainBtn');
+const allSections = document.querySelectorAll('section.section');
+const siteNav = document.querySelector('.site-header nav');
+const footer = document.querySelector('footer');
 
 const contactForm = document.getElementById('contactForm');
 const newsletterForm = document.getElementById('newsletterForm');
@@ -167,21 +170,35 @@ newsletterForm.addEventListener('submit', async (event) => {
 });
 
 const hideMainSections = () => {
-  mainContent.style.display = 'none';
-  surveyPage.classList.add('active');
-  surveyPage.setAttribute('aria-hidden', 'false');
+  if (siteHeader) siteHeader.style.display = 'none';
+  if (siteNav) siteNav.style.display = 'none';
+  if (footer) footer.style.display = 'none';
+
+  allSections.forEach((section) => {
+    section.style.display = 'none';
+  });
+
+  hiddenSurvey.style.display = 'block';
+  hiddenSurvey.setAttribute('aria-hidden', 'false');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
 const showMainSections = () => {
-  surveyPage.classList.remove('active');
-  surveyPage.setAttribute('aria-hidden', 'true');
-  mainContent.style.display = '';
+  if (siteHeader) siteHeader.style.display = 'block';
+  if (siteNav) siteNav.style.display = 'flex';
+  if (footer) footer.style.display = 'block';
+
+  allSections.forEach((section) => {
+    section.style.display = 'block';
+  });
+
+  hiddenSurvey.style.display = 'none';
+  hiddenSurvey.setAttribute('aria-hidden', 'true');
   document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
 };
 
-surveyTrigger.addEventListener('click', hideMainSections);
-surveyBack.addEventListener('click', showMainSections);
+surveyTriggerBtn.addEventListener('click', hideMainSections);
+backToMainBtn.addEventListener('click', showMainSections);
 
 surveyForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -228,11 +245,13 @@ privacyModal.addEventListener('click', (event) => {
   if (event.target === privacyModal) closePrivacyModal();
 });
 
-if (localStorage.getItem('cookieAccepted') !== '1') {
-  cookieBanner.classList.add('show');
+if (localStorage.getItem('cookieAccepted') === '1') {
+  cookieBanner.style.display = 'none';
+} else {
+  cookieBanner.style.display = 'flex';
 }
 
 cookieAcceptBtn.addEventListener('click', () => {
   localStorage.setItem('cookieAccepted', '1');
-  cookieBanner.classList.remove('show');
+  cookieBanner.style.display = 'none';
 });
