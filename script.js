@@ -6,21 +6,28 @@ async function supabaseInsert(table, data) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      apikey: SUPABASE_ANON_KEY,
-      Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-      Prefer: 'return=minimal'
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Prefer': 'return=minimal'
     },
     body: JSON.stringify(data)
   });
-  if (!res.ok) throw new Error(res.status);
+  if (!res.ok) throw new Error(`Supabase error: ${res.status}`);
+  return true;
 }
 
 async function newsletterExists(email) {
   const res = await fetch(
     `${SUPABASE_URL}/rest/v1/newsletter?email=eq.${encodeURIComponent(email)}&select=email`,
-    { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
+    {
+      headers: {
+        'apikey': SUPABASE_ANON_KEY,
+        'Authorization': `Bearer ${SUPABASE_ANON_KEY}`
+      }
+    }
   );
-  return (await res.json()).length > 0;
+  const data = await res.json();
+  return data.length > 0;
 }
 
 const scrollProgress = document.getElementById('scrollProgress');
@@ -38,17 +45,11 @@ const privacyOpenBtn = document.getElementById('privacyOpenBtn');
 const privacyCloseBtn = document.getElementById('privacyCloseBtn');
 const privacyCookieLink = document.getElementById('privacyCookieLink');
 
-const mainContent = document.getElementById('mainContent');
-const hiddenSurvey = document.getElementById('hiddenSurvey');
-const surveyTriggerBtn = document.getElementById('surveyTriggerBtn');
-const backToMainBtn = document.getElementById('backToMainBtn');
-const allSections = document.querySelectorAll('section.section');
-const siteNav = document.querySelector('.site-header nav');
-const footer = document.querySelector('footer');
-
 const contactForm = document.getElementById('contactForm');
 const newsletterForm = document.getElementById('newsletterForm');
 const surveyForm = document.getElementById('surveyForm');
+
+const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const showStatus = (target, message, type) => {
   target.innerHTML = `<div class="status-message ${type}">${message}</div>`;
@@ -83,7 +84,7 @@ const sectionObserver = new IntersectionObserver(
       });
     });
   },
-  { threshold: 0.35 }
+  { threshold: 0.3 }
 );
 
 document.querySelectorAll('main section[id], #hero').forEach((section) => sectionObserver.observe(section));
@@ -124,20 +125,28 @@ contactForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const status = document.getElementById('contactStatus');
   const submitBtn = document.getElementById('contactSubmit');
-  const formData = new FormData(contactForm);
-  const payload = {
-    name: formData.get('name')?.toString().trim(),
-    email: formData.get('email')?.toString().trim(),
-    message: formData.get('message')?.toString().trim()
-  };
+
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const message = document.getElementById('contactMessage').value.trim();
+
+  if (!name || !email || !message) {
+    showStatus(status, 'Bitte fülle alle Felder aus.', 'error');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showStatus(status, 'Bitte gib eine gültige E-Mail-Adresse ein.', 'error');
+    return;
+  }
 
   try {
     setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
-    await supabaseInsert('contacts', payload);
-    showStatus(status, 'Nachricht erhalten — ich melde mich bald.', 'success');
+    await supabaseInsert('contacts', { name, email, message });
+    showStatus(status, 'Nachricht erfolgreich gesendet.', 'success');
     contactForm.reset();
   } catch {
-    showStatus(status, 'Etwas hat nicht geklappt. Schreib mir direkt: livius.grob@gmx.ch', 'error');
+    showStatus(status, 'Fehler beim Senden. Bitte versuche es erneut.', 'error');
   } finally {
     setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
   }
@@ -147,81 +156,92 @@ newsletterForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const status = document.getElementById('newsletterStatus');
   const submitBtn = document.getElementById('newsletterSubmit');
-  const formData = new FormData(newsletterForm);
-  const payload = {
-    name: formData.get('name')?.toString().trim(),
-    email: formData.get('email')?.toString().trim()
-  };
+
+  const name = document.getElementById('newsletterName').value.trim();
+  const email = document.getElementById('newsletterEmail').value.trim();
+
+  if (!name || !email) {
+    showStatus(status, 'Bitte fülle alle Felder aus.', 'error');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showStatus(status, 'Bitte gib eine gültige E-Mail-Adresse ein.', 'error');
+    return;
+  }
 
   try {
-    setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ANMELDEN');
-    if (await newsletterExists(payload.email)) {
+    const exists = await newsletterExists(email);
+    if (exists) {
       showStatus(status, 'Diese E-Mail ist bereits angemeldet.', 'error');
       return;
     }
-    await supabaseInsert('newsletter', payload);
-    showStatus(status, 'Bist dabei — bis Montag.', 'success');
+
+    setButtonLoading(submitBtn, true, 'Wird gespeichert...', 'ANMELDEN');
+    await supabaseInsert('newsletter', { name, email });
+    showStatus(status, 'Erfolgreich zum Newsletter angemeldet.', 'success');
     newsletterForm.reset();
   } catch {
-    showStatus(status, "Hat nicht geklappt. Versuch's nochmal.", 'error');
+    showStatus(status, 'Fehler beim Speichern. Bitte versuche es erneut.', 'error');
   } finally {
-    setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ANMELDEN');
+    setButtonLoading(submitBtn, false, 'Wird gespeichert...', 'ANMELDEN');
   }
 });
 
-const hideMainSections = () => {
-  if (siteHeader) siteHeader.style.display = 'none';
-  if (siteNav) siteNav.style.display = 'none';
-  if (footer) footer.style.display = 'none';
-
-  allSections.forEach((section) => {
-    section.style.display = 'none';
+document.getElementById('surveyTriggerBtn').addEventListener('click', function() {
+  document.querySelector('nav').style.display = 'none';
+  document.querySelectorAll('section, header, footer').forEach(el => {
+    el.style.display = 'none';
   });
+  const survey = document.getElementById('hiddenSurvey');
+  survey.style.display = 'block';
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+});
 
-  hiddenSurvey.style.display = 'block';
-  hiddenSurvey.setAttribute('aria-hidden', 'false');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-};
-
-const showMainSections = () => {
-  if (siteHeader) siteHeader.style.display = 'block';
-  if (siteNav) siteNav.style.display = 'flex';
-  if (footer) footer.style.display = 'block';
-
-  allSections.forEach((section) => {
-    section.style.display = 'block';
+document.getElementById('backToMainBtn').addEventListener('click', function() {
+  document.getElementById('hiddenSurvey').style.display = 'none';
+  document.querySelector('nav').style.display = '';
+  document.querySelectorAll('section, header, footer').forEach(el => {
+    el.style.display = '';
   });
-
-  hiddenSurvey.style.display = 'none';
-  hiddenSurvey.setAttribute('aria-hidden', 'true');
-  document.getElementById('survey').scrollIntoView({ behavior: 'smooth' });
-};
-
-surveyTriggerBtn.addEventListener('click', hideMainSections);
-backToMainBtn.addEventListener('click', showMainSections);
+  const target = document.getElementById('surveyMain') || document.getElementById('survey');
+  if (target) target.scrollIntoView({ behavior: 'smooth' });
+});
 
 surveyForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const status = document.getElementById('surveyStatus');
   const submitBtn = document.getElementById('surveySubmit');
-  const formData = new FormData(surveyForm);
 
-  const payload = {
-    name: formData.get('name')?.toString().trim(),
-    email: formData.get('email')?.toString().trim(),
-    question_1: formData.get('q1'),
-    question_2: formData.get('q2'),
-    question_3: formData.get('q3'),
-    question_4: formData.get('q4')
-  };
+  const name = document.getElementById('surveyName').value.trim();
+  const email = document.getElementById('surveyEmail').value.trim();
+  const q1 = surveyForm.querySelector('input[name="q1"]:checked')?.value || '';
+  const q2 = surveyForm.querySelector('input[name="q2"]:checked')?.value || '';
+  const q3 = document.getElementById('surveyChallenge').value.trim();
+  const q4 = surveyForm.querySelector('input[name="q4"]:checked')?.value || '';
+
+  if (!name || !email || !q1 || !q2 || !q4) {
+    showStatus(status, 'Bitte fülle alle Pflichtfelder aus.', 'error');
+    return;
+  }
+
+  if (!isValidEmail(email)) {
+    showStatus(status, 'Bitte gib eine gültige E-Mail-Adresse ein.', 'error');
+    return;
+  }
 
   try {
     setButtonLoading(submitBtn, true, 'Wird gesendet...', 'ABSENDEN');
-    await supabaseInsert('surveys', payload);
-    showStatus(status, 'Danke — das hilft mir wirklich weiter.', 'success');
+    await supabaseInsert('surveys', { name, email, q1, q2, q3, q4 });
+    showStatus(status, 'Umfrage erfolgreich gesendet.', 'success');
     surveyForm.reset();
+    setTimeout(() => {
+      document.getElementById('backToMainBtn').click();
+    }, 2500);
   } catch {
-    showStatus(status, "Hat nicht geklappt. Versuch's nochmal.", 'error');
+    showStatus(status, 'Fehler beim Senden. Bitte versuche es erneut.', 'error');
   } finally {
     setButtonLoading(submitBtn, false, 'Wird gesendet...', 'ABSENDEN');
   }
