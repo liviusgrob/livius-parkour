@@ -16,10 +16,7 @@
     />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWix+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkR4j8Wc0nQqyiFbwA4D4gzJ9L5x7v3VfQwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
@@ -208,13 +205,14 @@
       <section id="survey" class="section survey">
         <div class="container reveal center">
           <p class="section-label">07 / UMFRAGE</p>
-          <button id="surveyTrigger" class="survey-trigger">ZUR UMFRAGE →</button>
+          <button id="surveyTriggerBtn" class="survey-trigger">ZUR UMFRAGE →</button>
         </div>
       </section>
 
-      <section id="surveyPage" class="survey-page" aria-hidden="true">
+      <section id="hiddenSurvey" class="survey-page section" aria-hidden="true">
         <div class="container">
-          <button id="surveyBack" class="survey-back">← Zurück</button>
+          <div id="surveyMain"></div>
+          <button id="backToMainBtn" class="survey-back">← Zurück</button>
           <h2 class="section-title">Kurze Umfrage</h2>
           <form id="surveyForm" class="site-form survey-form">
             <label for="surveyName">Name</label>
@@ -281,13 +279,13 @@
         <p class="footer-logo">LIVIUS</p>
         <p class="footer-tagline">Movement. Kontrolle. Disziplin.</p>
         <div class="footer-socials">
-          <a href="https://www.tiktok.com/@liviusparkour" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
-          <a href="https://www.instagram.com/livius.parkour/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
-          <a href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="https://www.streemparkour.com/" aria-label="Streem Parkour" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-people-group"></i></a>
-          <button id="privacyOpenBtn" aria-label="Datenschutz"><i class="fa-solid fa-shield-halved"></i></button>
+          <a class="social-icon" href="https://www.tiktok.com/@liviusparkour" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
+          <a class="social-icon" href="https://www.instagram.com/livius.parkour/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+          <a class="social-icon" href="https://whatsapp.com/channel/0029VaEY307J3juummG6193m" aria-label="WhatsApp" target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp"></i></a>
+          <a class="social-icon" href="https://www.streemparkour.com/" aria-label="Streem Parkour" target="_blank" rel="noopener noreferrer"><i class="fas fa-running"></i></a>
+          <button class="social-icon" id="privacyOpenBtn" aria-label="Datenschutz"><i class="fas fa-shield-alt"></i></button>
         </div>
-        <p class="copyright">© 2025 Livius — Parkour Creator Basel</p>
+        <p class="copyright">© 2026 Livius — Parkour Creator Basel</p>
       </div>
     </footer>
 

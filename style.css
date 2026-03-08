@@ -37,7 +37,22 @@ a {
 }
 
 .section {
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  min-height: 100vh;
+  padding: clamp(6.5rem, 11vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
+}
+
+#hero,
+#about,
+#gallery,
+#work,
+#connect,
+#contact,
+#newsletter,
+#survey,
+#surveyMain,
+#impressum,
+#hiddenSurvey {
+  scroll-margin-top: 100px;
 }
 
 .section-label {
@@ -453,10 +468,6 @@ button {
   padding: 6rem 0 3rem;
 }
 
-.survey-page.active {
-  display: block;
-}
-
 .survey-back {
   border: 1px solid var(--border);
   background: #141414;
@@ -520,23 +531,27 @@ button {
   gap: 0.6rem;
 }
 
-.footer-socials a,
-.footer-socials button {
+.social-icon {
   width: 44px;
   height: 44px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  background: #171717;
-  color: #fff;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
-.footer-socials a:hover,
-.footer-socials button:hover {
-  background: var(--primary);
+.social-icon i {
+  font-size: 1.3rem;
+}
+
+.social-icon:hover {
+  background: #ff0030;
+  color: #ffffff;
+  border-color: #ff0030;
 }
 
 .copyright {
@@ -554,26 +569,32 @@ button {
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  background: rgba(15, 15, 15, 0.98);
+  background: rgba(15, 15, 15, 0.97);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding: 1rem 2rem;
   z-index: 9999;
-  transform: translateY(100%);
-  transition: transform 0.3s ease;
 }
 
-.cookie-banner.show {
-  transform: translateY(0);
+.cookie-banner p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.cookie-banner a {
+  color: #ff0030;
 }
 
 .cookie-banner button {
-  background: var(--primary);
-  color: #fff;
-  border: 0;
+  background: #ff0030;
+  color: white;
+  border: none;
   padding: 0.5rem 1.5rem;
   border-radius: 6px;
   cursor: pointer;
+  font-weight: 600;
 }
+
 
 .privacy-modal {
   position: fixed;
