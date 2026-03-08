@@ -27,15 +27,15 @@
       <nav class="nav container">
         <a class="logo" href="#hero">LIVIUS</a>
         <ul class="nav-links" id="navLinks">
-          <li><a href="#hero">Start</a></li>
-          <li><a href="#about">Über mich</a></li>
-          <li><a href="#gallery">Galerie</a></li>
-          <li><a href="#work">Was ich mache</a></li>
-          <li><a href="#connect">Connect</a></li>
-          <li><a href="#contact">Kontakt</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><a href="#survey">Umfrage</a></li>
-          <li><a href="#impressum">Impressum</a></li>
+          <li><a class="nav-link" href="#hero">Start</a></li>
+          <li><a class="nav-link" href="#about">Über mich</a></li>
+          <li><a class="nav-link" href="#gallery">Galerie</a></li>
+          <li><a class="nav-link" href="#work">Was ich mache</a></li>
+          <li><a class="nav-link" href="#connect">Connect</a></li>
+          <li><a class="nav-link" href="#contact">Kontakt</a></li>
+          <li><a class="nav-link" href="#newsletter">Newsletter</a></li>
+          <li><a class="nav-link" href="#survey">Umfrage</a></li>
+          <li><a class="nav-link" href="#impressum">Impressum</a></li>
         </ul>
         <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
           <span></span><span></span><span></span>
@@ -44,15 +44,15 @@
       <div class="mobile-menu" id="mobileMenu">
         <button class="mobile-close" id="mobileClose" aria-label="Menü schließen">×</button>
         <ul>
-          <li><a href="#hero">Start</a></li>
-          <li><a href="#about">Über mich</a></li>
-          <li><a href="#gallery">Galerie</a></li>
-          <li><a href="#work">Was ich mache</a></li>
-          <li><a href="#connect">Connect</a></li>
-          <li><a href="#contact">Kontakt</a></li>
-          <li><a href="#newsletter">Newsletter</a></li>
-          <li><a href="#survey">Umfrage</a></li>
-          <li><a href="#impressum">Impressum</a></li>
+          <li><a class="nav-link" href="#hero">Start</a></li>
+          <li><a class="nav-link" href="#about">Über mich</a></li>
+          <li><a class="nav-link" href="#gallery">Galerie</a></li>
+          <li><a class="nav-link" href="#work">Was ich mache</a></li>
+          <li><a class="nav-link" href="#connect">Connect</a></li>
+          <li><a class="nav-link" href="#contact">Kontakt</a></li>
+          <li><a class="nav-link" href="#newsletter">Newsletter</a></li>
+          <li><a class="nav-link" href="#survey">Umfrage</a></li>
+          <li><a class="nav-link" href="#impressum">Impressum</a></li>
         </ul>
       </div>
     </header>
@@ -175,13 +175,13 @@
           <p class="section-label">05 / KONTAKT</p>
           <h2 class="section-title">Schreib mir</h2>
           <form id="contactForm" class="site-form">
-            <label for="contactName">Name</label>
-            <input id="contactName" name="name" type="text" placeholder="Dein Name" required />
-            <label for="contactEmail">E-Mail</label>
-            <input id="contactEmail" name="email" type="email" placeholder="Deine E-Mail" required />
-            <label for="contactMessage">Nachricht</label>
-            <textarea id="contactMessage" name="message" rows="5" placeholder="Deine Nachricht..." required></textarea>
-            <div id="contactStatus"></div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Dein Name" required />
+            <label for="email">E-Mail</label>
+            <input id="email" name="email" type="email" placeholder="Deine E-Mail" required />
+            <label for="message">Nachricht</label>
+            <textarea id="message" name="message" rows="5" placeholder="Deine Nachricht..." required></textarea>
+            <div id="contactFormMessage"></div>
             <button type="submit" id="contactSubmit">ABSENDEN</button>
           </form>
         </div>
@@ -192,11 +192,11 @@
           <p class="section-label">06 / NEWSLETTER</p>
           <h2 class="section-title">Bleib dabei</h2>
           <form id="newsletterForm" class="site-form">
-            <label for="newsletterName">Name</label>
-            <input id="newsletterName" name="name" type="text" placeholder="Dein Name" required />
-            <label for="newsletterEmail">E-Mail</label>
-            <input id="newsletterEmail" name="email" type="email" placeholder="Deine E-Mail" required />
-            <div id="newsletterStatus">Kein Spam. Jederzeit abmeldbar.</div>
+            <label for="newsletter-name">Name</label>
+            <input id="newsletter-name" name="name" type="text" placeholder="Dein Name" required />
+            <label for="newsletter-email">E-Mail</label>
+            <input id="newsletter-email" name="email" type="email" placeholder="Deine E-Mail" required />
+            <div id="newsletterFormMessage">Kein Spam. Jederzeit abmeldbar.</div>
             <button type="submit" id="newsletterSubmit">ANMELDEN</button>
           </form>
         </div>
@@ -236,8 +236,8 @@
             </fieldset>
             <fieldset>
               <legend>3. Was ist deine grösste Challenge beim Parkour?</legend>
-              <label for="surveyChallenge">Schreib einfach drauf los...</label>
-              <textarea id="surveyChallenge" name="q3" rows="4" placeholder="Schreib einfach drauf los..." required></textarea>
+              <label for="q3">Schreib einfach drauf los...</label>
+              <textarea id="q3" name="q3" rows="4" placeholder="Schreib einfach drauf los..." required></textarea>
             </fieldset>
             <fieldset>
               <legend>4. Wärst du dabei bei einem Online-Workshop?</legend>
@@ -245,7 +245,7 @@
               <label><input type="radio" name="q4" value="Vielleicht" /> Vielleicht</label>
               <label><input type="radio" name="q4" value="Eher nicht" /> Eher nicht</label>
             </fieldset>
-            <div id="surveyStatus"></div>
+            <div id="surveyFormMessage"></div>
             <button type="submit" id="surveySubmit">ABSENDEN</button>
           </form>
         </div>

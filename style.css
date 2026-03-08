@@ -41,21 +41,58 @@ a {
   padding: clamp(6.5rem, 11vw, 8rem) 0 clamp(4rem, 8vw, 7rem);
 }
 
-#hero,
-#gallery,
-#connect,
-#contact,
-#newsletter,
-#impressum,
-#hiddenSurvey {
-  scroll-margin-top: 100px;
+section,
+header.hero {
+  scroll-margin-top: 130px;
 }
 
-#about,
-#work,
+#about {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+
+#gallery {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+
+#work {
+  padding-top: 180px;
+  padding-bottom: 180px;
+  min-height: 100vh;
+}
+
+#connect {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+
+#contact {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+
+#newsletter {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
+}
+
 #survey,
 #surveyMain {
-  scroll-margin-top: 120px;
+  padding-top: 180px;
+  padding-bottom: 180px;
+  min-height: 100vh;
+}
+
+#impressum {
+  padding-top: 160px;
+  padding-bottom: 120px;
+  min-height: 100vh;
 }
 
 .section-label {
@@ -270,10 +307,6 @@ button {
   z-index: 2;
 }
 
-#about {
-  padding-top: 140px;
-}
-
 .about-grid {
   display: grid;
   gap: 2rem;
@@ -296,7 +329,7 @@ button {
 
 .masonry {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 
@@ -304,28 +337,23 @@ button {
   margin: 0;
   overflow: hidden;
   border-radius: 8px;
+  height: 280px;
 }
 
 .masonry img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   cursor: pointer;
-  transition: transform 0.3s ease, filter 0.3s ease;
+  transition: transform 0.3s ease;
 }
 
 .masonry img:hover {
-  transform: scale(1.03);
-  filter: brightness(1.1);
+  transform: scale(1.04);
 }
 
-
-#work,
-#survey {
-  padding-top: clamp(6rem, 12vw, 10rem);
-  padding-bottom: clamp(6rem, 12vw, 10rem);
-}
 
 .work-shell {
   background: rgba(255, 255, 255, 0.03);
@@ -482,9 +510,12 @@ button {
 }
 
 .survey-page {
-  display: none;
   min-height: 100vh;
   padding: 6rem 0 3rem;
+}
+
+#hiddenSurvey {
+  display: none;
 }
 
 .survey-back {
@@ -673,6 +704,10 @@ button {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .masonry figure {
+    height: 220px;
+  }
+
   .nav-links {
     display: none;
   }
@@ -692,6 +727,10 @@ button {
   .masonry,
   .connect-grid {
     grid-template-columns: 1fr;
+  }
+
+  .masonry figure {
+    height: 200px;
   }
 
   .cookie-banner {
