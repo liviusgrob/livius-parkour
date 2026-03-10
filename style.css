@@ -346,8 +346,8 @@ button {
 .masonry figure {
   margin: 0;
   overflow: hidden;
+  height: 260px;
   border-radius: 8px;
-  height: 280px;
 }
 
 .masonry img {
@@ -356,8 +356,7 @@ button {
   object-fit: cover;
   object-position: center;
   display: block;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+  max-width: 100%;
 }
 
 .masonry img:hover {
@@ -715,7 +714,7 @@ button {
   }
 
   .masonry figure {
-    height: 220px;
+    height: 260px;
   }
 
   .nav-links {
@@ -740,7 +739,7 @@ button {
   }
 
   .masonry figure {
-    height: 200px;
+    height: 260px;
   }
 
   .cookie-banner {
